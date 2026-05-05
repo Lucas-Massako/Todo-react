@@ -6,7 +6,7 @@ function TodoItem({ task, ClearTask, TrueTask}) {
             style={{marginRight:"10px"}}
         />
         <span 
-            style={{color: task.completed ? 'green' : 'red', marginRight:"10px", flex:1}}>
+            style={{color: task.completed ? 'blue' : 'purple', marginRight:"10px", flex:1}}>
             {task.text}
         </span>
         <button onClick={ClearTask}>Supprimer</button>
