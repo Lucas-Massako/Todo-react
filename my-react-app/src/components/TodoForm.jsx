@@ -1,25 +1,31 @@
-import { use, useState } from "react";
+import { useState } from "react"; 
 
-function TodoForm(AddTask) 
-{
-   
-    const [task, setTask] = useState("");
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    AddTask(task);
-    setTask("");
-  };
-    return(
-       <form onSubmit={handleSubmit}>
+function TodoForm({ AddTask }) { 
+    
+    const [text, setText] = useState(''); 
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        
+       
+        if (text.trim()) { 
+            console.log(`Nouvelle tâche ajoutée : ${text}`); 
+            AddTask(text); 
+            setText(''); 
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="todo-form"> 
             <input 
-                type="text" 
-                placeholder="new task" 
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)} 
+                placeholder="Ajouter une tâche"
             />
-            <button type="submit">Add</button>
-           
+            <button type="submit">Ajouter</button> 
         </form>
     );
 }
-export default TodoForm;
+
+export default TodoForm; 

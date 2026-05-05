@@ -4,19 +4,26 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import TodoForm from './components/TodoForm'
-import TodoList from './components/TodoList';
-
+import TodoList from './components/TodoList'
 
 function App() {
   const [count, setCount] = useState(0)
-  const addTask = (task) => { 
-    const newTask = {id: Date.now(), text: task, completed: false};
-    setTasks([...tasks, newTask]);
-  };
+  const [tasks, setTasks] = useState([])
 
-  
-  
-  
+  const addTask = (taskText) => { 
+    const newTask = { id: Date.now(), text: taskText, completed: false }
+    setTasks([...tasks, newTask])
+  }
+
+  const clearTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
+  const trueTask = (id) => {
+    setTasks(tasks.map(task => 
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ))
+  }
 
   return (
     <>
@@ -26,13 +33,17 @@ function App() {
           <img src={reactLogo} className="framework" alt="React logo" />
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
+        
         <div>
           <h1>Get started</h1>
-          
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <TodoForm AddTask={addTask} />
+          <TodoList 
+            tasks={tasks} 
+            ClearTask={clearTask} 
+            TrueTask={trueTask} 
+          />
         </div>
+
         <button
           type="button"
           className="counter"
@@ -40,13 +51,11 @@ function App() {
         >
           Count is {count}
         </button>
-      
-      <TodoForm />
-     
-      
-    </section>
+      </section>
+
+      <div className="ticks"></div>
     </>
   )
 }
 
-export default App;
+export default App
